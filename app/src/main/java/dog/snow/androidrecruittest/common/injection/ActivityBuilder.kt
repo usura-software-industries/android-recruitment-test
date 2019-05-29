@@ -2,8 +2,8 @@ package dog.snow.androidrecruittest.common.injection
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import dog.snow.androidrecruittest.MainActivity
-import dog.snow.androidrecruittest.MainActivityModule
+import dog.snow.androidrecruittest.feature.MainActivity
+import dog.snow.androidrecruittest.feature.MainActivityModule
 
 @Module
 abstract class ActivityBuilder {

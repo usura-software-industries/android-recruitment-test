@@ -5,7 +5,7 @@ import dog.snow.androidrecruittest.core.error.RetrofitResponseOrError
 import io.reactivex.Flowable
 import io.reactivex.Observable
 
-interface ItemRepositoryRepository {
+interface ItemRepository {
 
     fun updateItemsObservable(): Observable<RetrofitResponseOrError<List<Item>>>
     fun getItemsObservable(): Flowable<List<Item>>

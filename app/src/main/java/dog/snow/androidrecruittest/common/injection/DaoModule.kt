@@ -6,11 +6,11 @@ import dog.snow.androidrecruittest.BuildConfig
 import dog.snow.androidrecruittest.common.api.ItemApi
 import dog.snow.androidrecruittest.common.api.RetrofitItemApi
 import dog.snow.androidrecruittest.common.database.ItemDatabase
+import dog.snow.androidrecruittest.common.database.RealmItemDatabase
+import dog.snow.androidrecruittest.common.repository.ItemRepository
+import dog.snow.androidrecruittest.common.repository.ItemRepositoryImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import dog.snow.androidrecruittest.common.database.RealmItemDatabase
-import dog.snow.androidrecruittest.common.repository.ItemRepositoryRepository
-import dog.snow.androidrecruittest.common.repository.ItemRepositoryRepositoryImpl
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -27,27 +27,29 @@ class DaoModule {
     @Provides
     @Singleton
     @Named(API_BASE_URL)
-    fun providesLocationServiceAPI(): String = "http://localhost:8080/api/"
+    fun providesLocationServiceAPI(): String =
+//            "http://192.168.1.133:8080/api/"
+             "http://localhost:8080/api/"
     //^ TODO set url
 
     @Provides
     @Singleton
     fun provideRetrofit(@Named(API_BASE_URL) api: String): Retrofit = Retrofit.Builder()
-        .baseUrl(api)
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .apply {
-            if (BuildConfig.DEBUG) {
-                client(
-                    OkHttpClient.Builder()
-                        .addInterceptor(HttpLoggingInterceptor()
-                            .apply {
-                                level = HttpLoggingInterceptor.Level.BODY
-                            })
-                        .build()
-                )
-            }
-        }.build()
+            .baseUrl(api)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .apply {
+                if (BuildConfig.DEBUG) {
+                    client(
+                            OkHttpClient.Builder()
+                                    .addInterceptor(HttpLoggingInterceptor()
+                                            .apply {
+                                                level = HttpLoggingInterceptor.Level.BODY
+                                            })
+                                    .build()
+                    )
+                }
+            }.build()
 
     @Provides
     @Singleton
@@ -59,6 +61,6 @@ class DaoModule {
 
     @Provides
     @Singleton
-    fun providesRepository(api: ItemApi, database: ItemDatabase): ItemRepositoryRepository =
-        ItemRepositoryRepositoryImpl(api, database)
+    fun providesRepository(api: ItemApi, database: ItemDatabase): ItemRepository =
+            ItemRepositoryImpl(api, database)
 }

@@ -7,10 +7,10 @@ import dog.snow.androidrecruittest.core.error.RetrofitResponseOrError
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class ItemRepositoryRepositoryImpl @Inject constructor(
+class ItemRepositoryImpl @Inject constructor(
         private val apiDao: ItemApi,
         private val database: ItemDatabase
-) : ItemRepositoryRepository {
+) : ItemRepository {
 
     override fun updateItemsObservable(): Observable<RetrofitResponseOrError<List<Item>>> {
         return apiDao.getItems()
